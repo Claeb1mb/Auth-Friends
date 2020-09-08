@@ -4,8 +4,8 @@ import axios from "axios";
 class Login extends React.Component {
   state = {
     credentials: {
-      username: "",
-      password: "",
+      username: "Lambda School",
+      password: "i<3Lambd4",
     },
   };
 
@@ -16,9 +16,9 @@ class Login extends React.Component {
       .then((res) => {
         console.log(res);
         localStorage.setItem("token", res.data.payload);
-        this.props.history.push("./protected");
+        this.props.history.push("./friend");
       })
-      .catch((err) => console.Console.log({ err }));
+      .catch((err) => console.log({ err }));
   };
 
   handleChanges = (e) => {
