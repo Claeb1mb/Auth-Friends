@@ -1,33 +1,40 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { axiosWithAuth } from "../utils/axiosWithAuth";
+
 // This Component Dispalys The Current Friend List
-class FriendList extends React.Component {
-  state = {
-    friends: [],
-  };
+const FriendList = () => {
+  const [friends, setFriends] = useState([
+    {
+      age: "",
+      email: "",
+      id: "",
+      name: "",
+    },
+  ]);
 
-  componentDidMount() {
-    this.getData();
-  }
-
-  getData = () => {
+  useEffect(() => {
     axiosWithAuth()
-      .get("/api/friends")
+      .get("http://localhost:5000/api/friends")
       .then((res) => {
         console.log(res);
-        this.setState({ friends: res.data });
+        setFriends(res.data);
       })
-      .catch((err) => console.log({ err }));
-  };
+      .catch((err) => console.log(err));
+  });
 
-  render() {
-    return (
-      <div>
-        <h1>Hi</h1>
-      </div>
-    );
-  }
-}
+  return (
+    <div>
+      <h1>Hi</h1>
+      {friends.map((item) => (
+        <div key={item.id}>
+          <p>{item.name}</p>
+          <p>{item.age}</p>
+          <p>{item.email}</p>
+        </div>
+      ))}
+    </div>
+  );
+};
 
 export default FriendList;
 
